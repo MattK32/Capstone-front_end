@@ -1,0 +1,60 @@
+<!doctype html>
+<style>
+    .button2 {
+background-color: #E47500; /* Green */
+border: none;
+color: white;
+padding: 8px 16px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+-webkit-transition-duration: 0.4s; /* Safari */
+transition-duration: 0.4s;
+cursor: pointer;
+}
+
+
+
+
+.button1 {
+background-color: white; 
+color: black; 
+border: 2px solid #E47500  ;
+}
+
+.button1:hover {
+background-color: #E47500;
+color: white;
+}
+</style>
+
+    <img src="http://www.octoconsulting.com/wp-content/themes/octo-theme/images/Octo_logo.png" alt="Octo Logo" width="450" height="100">
+    <h1 align="CENTER"> Satellite Image Classification </h1>
+    <h2 align="CENTER"> Using the DUIx xView Dataset </h2>
+    <p>The governement agency Defense Unit Innovation Experimental (DUIx) has provided
+        one of the largest pre-classified publicly available datasets of overhead imagery.
+    </p>
+  <p>Octo Consulting Group has worked with Virginia Tech Computational Modeling and
+      Data Analytics students to improve upon a pre-existing Convolutional Neural 
+      Network model. The algorithm can accurately detect and classify roughly 60 objects
+      that are seen in most satellite images.
+    </p> 
+  <p>Now that this technology exists, things such as distaster relief and troop supply
+      movement can be improved.
+    </p>
+  <p> You can look at some examples of how the classification works on example satellite images
+    </p>
+    <form action="\examples">
+    <button class="button2 button1" >Go to Examples</button>
+    
+      </form>
+      <p>Or you can submit a satellite image below to see what our algorithm can detect.
+        </p>
+</div>
+<title>Upload new File</title>
+    <form action="" method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>

@@ -1,0 +1,694 @@
+
+  <html>
+
+        
+        <style>
+
+         
+:focus {
+	outline: 0;
+}
+
+.img{
+  position:absolute;
+  z-index:1;
+  }
+
+
+#myCanvas{
+    position:absolute;
+    z-index:20;
+    margin:0;
+    padding:0;
+}
+
+.fixed_header{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+.fixed_header tbody{
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 400px;
+}
+
+.fixed_header thead tr {
+   display: block;
+}
+
+.fixed_header thead {
+  background: black;
+  color:#fff;
+}
+
+.fixed_header th, .fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 252px;
+}
+
+          .button2 {
+    background-color: #E47500; 
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+
+
+.button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #E47500  ;
+}
+
+.button1:hover {
+    background-color: #E47500;
+    color: white;
+}
+
+
+
+          #myInput {
+            
+    width: 100%; 
+    font-size: 16px; 
+    padding: 12px 20px 12px 40px; 
+    border: 1px solid #ddd; 
+    margin-bottom: 12px; 
+}
+
+
+          * {
+    box-sizing: border-box;
+}
+
+.column1 {
+    float: left;
+    width: 33.333%;
+    padding:5;
+    margin:0;
+}
+.column2 {
+    float: left;
+    width: 66.667%;
+    padding:5;
+    margin:0;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+}
+
+
+        
+        </style>
+
+
+<script type="text/javascript">
+
+  function addTable() {
+      var myTableDiv = document.getElementById("tablediv")
+      var table = document.createElement('TABLE')
+      var tableBody = document.createElement('TBODY')
+      var tableHead = document.createElement('THEAD')
+      table.setAttribute("id", "OctoTable")
+      
+      table.setAttribute("class", "fixed_header")
+      table.border = '1'
+      table.appendChild(tableHead);
+      table.appendChild(tableBody);
+
+      var heading = new Array();	
+      heading[0] = "Item"
+      heading[1] = "Frequency"
+
+      
+      
+      var stock = new Array()
+      stock = new Array("Fixed-wing Aircraft","Small Aircraft", "Passenger/Cargo Plane", "Helicopter","Passenger Vehicle", "Small Car", "Bus","Pickup Truck", "Utility Truck", "Truck","Cargo Truck","Tractor Truck with Box Trailer", "Truck Tractor", "Trailer","Truck Tractorw/FlatbedTrailer", "Truck Tractor with LiquidTank", "Crane Truck","Railway Vehicle"," PassengerCar","Cargo/Container Car","Flat Car"," Tank Car", "Locomotive","Maritime Vessel", "Motorboat","Sailboat","Tugboat","Barge","Fishing Vessel", "Ferry","Yacht","Container Ship","Oil Tanker","Engineering Vehicle","Tower Crane","Container Crane","Reach Stacker","Straddle Carrier","Mobile Crane","Dump Truck", "Haul Truck", "Scraper/Tractor","Front loader/Bulldozer","Excavator","Cement Mixer","Ground Grader", "Hut/Tent","Shed","Building","Aircraft Hangar","Damaged Building", "Facility","Construction Site", "Vehicle Lot", "Helipad","Storage Tank", "Shipping container lot", "Shipping Container","Pylon","Tower",)
+      var labels =  new Array(11,12,13,15,17,18,19,20,21,23,24,25,26,27,28,29,32,33,34,35,36,37,38,40,41,42,44,45,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65,66,71,72,73,74,76,77,79,83,84,86,89,91,93,94)
+      var objects = new Array();
+      for (i = 0; i < stock.length;i++)
+      {
+        objects[i] = {
+          name : stock[i],
+          id : labels[i],
+          frequency : 0,
+          pos : i
+        } 
+      }
+
+      s = "{{myList}}"
+      
+      list = s.split(",")
+      for (i=0;i<list.length;i++)
+      {
+          if(list[i].split(" ")[5] > 0.5)
+          {
+            x = list[i].split(" ")[4];
+            
+            for(j=0;j<objects.length;j++)
+            {
+              objects[0].frequency = 2;
+              if(objects[j].id == x)
+              {
+                objects[j].frequency++;
+                
+                break;
+              }
+            }
+            
+          }
+          
+      }
+      
+      
+
+
+      //TABLE COLUMNS
+      var tr = document.createElement('TR');
+      tableHead.appendChild(tr);
+      for (i = 0; i < heading.length; i++) {
+          var th = document.createElement('TH')
+          th.width = '75';
+          th.appendChild(document.createTextNode(heading[i]));
+          tr.appendChild(th);
+      }
+      //TABLE ROWS
+      objects.sort(function(a, b){return b.frequency - a.frequency});
+
+
+      for (i = 0; i < objects.length; i++) {
+    var tr = document.createElement('TR');
+        var td1 = document.createElement('TD')
+        var td2 = document.createElement('TD')
+        
+          var button = document.createElement('button')
+          button.innerHTML=objects[i].name
+          x = objects[i].pos;
+          c = 0;
+          switch(x)
+          {
+            case 0: button.onclick = function(){drawBoxes(11)};
+            c=11;
+            break;
+            case 1: button.onclick = function(){drawBoxes(12)};
+            c=12;
+            break;
+            case 2: button.onclick = function(){drawBoxes(13)};
+            c=13;
+            break;
+            case 3: button.onclick = function(){drawBoxes(15)};
+            c=15;
+            break;
+            case 4: button.onclick = function(){drawBoxes(17)};
+            c=17;
+            break;
+            case 5: button.onclick = function(){drawBoxes(18)};
+            c=18;
+            break;
+            case 6: button.onclick = function(){drawBoxes(19)};
+            c=19;
+            break;
+            case 7: button.onclick = function(){drawBoxes(20)};
+            c=20;
+            break;
+            case 8: button.onclick = function(){drawBoxes(21)};
+            c=21;
+            break;
+            case 9: button.onclick = function(){drawBoxes(23)};
+            c=23;
+            break;
+            case 10: button.onclick = function(){drawBoxes(24)};
+            c=24;
+            break;
+            case 11: button.onclick = function(){drawBoxes(25)};
+            c=25;
+            break;
+            case 12: button.onclick = function(){drawBoxes(26)};
+            c=26;
+            break;
+            case 13: button.onclick = function(){drawBoxes(27)};
+            c=27;
+            break;
+            case 14: button.onclick = function(){drawBoxes(28)};
+            c=28;
+            break;
+            case 15: button.onclick = function(){drawBoxes(29)};
+            c=29;
+            break;
+            case 16: button.onclick = function(){drawBoxes(32)};
+            c=32;
+            break;
+            case 17: button.onclick = function(){drawBoxes(33)};
+            c=33;
+            break;
+            case 18: button.onclick = function(){drawBoxes(34)};
+            c=34;
+            break;
+            case 19: button.onclick = function(){drawBoxes(35)};
+            c=35;
+            break;
+            case 20: button.onclick = function(){drawBoxes(36)};
+            c=36;
+            break;
+            case 21: button.onclick = function(){drawBoxes(37)};
+            c=37;
+            break;
+            case 22: button.onclick = function(){drawBoxes(38)};
+            c=38;
+            break;
+            case 23: button.onclick = function(){drawBoxes(40)};
+            c=40;
+            break;
+            case 24: button.onclick = function(){drawBoxes(41)};
+            c=41;
+            break;
+            case 25: button.onclick = function(){drawBoxes(42)};
+            c=42;
+            break;
+            case 26: button.onclick = function(){drawBoxes(44)};
+            c=44;
+            break;
+            case 27: button.onclick = function(){drawBoxes(45)};
+            c=45;
+            break;
+            case 28: button.onclick = function(){drawBoxes(47)};
+            c=47;
+            break;
+            case 29: button.onclick = function(){drawBoxes(49)};
+            c=49;
+            break;
+            case 30: button.onclick = function(){drawBoxes(50)};
+            c=50;
+            break;
+            case 31: button.onclick = function(){drawBoxes(51)};
+            c=51;
+            break;
+            case 32: button.onclick = function(){drawBoxes(52)};
+            c=52;
+            break;
+            case 33: button.onclick = function(){drawBoxes(53)};
+            c=53;
+            break;
+            case 34: button.onclick = function(){drawBoxes(54)};
+            c=54;
+            break;
+            case 35: button.onclick = function(){drawBoxes(55)};
+            c=55;
+            break;
+            case 36: button.onclick = function(){drawBoxes(56)};
+            c=56;
+            break;
+            case 37: button.onclick = function(){drawBoxes(57)};
+            c=57;
+            break;
+            case 38: button.onclick = function(){drawBoxes(59)};
+            c=59;
+            break;
+            case 39: button.onclick = function(){drawBoxes(60)};
+            c=60;
+            break;
+            case 40: button.onclick = function(){drawBoxes(61)};
+            c=61;
+            break;
+            case 41: button.onclick = function(){drawBoxes(62)};
+            c=62;
+            break;
+            case 42: button.onclick = function(){drawBoxes(63)};
+            c=63;
+            break;
+            case 43: button.onclick = function(){drawBoxes(64)};
+            c=64;
+            break;
+            case 44: button.onclick = function(){drawBoxes(65)};
+            c=65;
+            break;
+            case 45: button.onclick = function(){drawBoxes(66)};
+            c=66;
+            break;
+            case 46: button.onclick = function(){drawBoxes(71)};
+            c=71;
+            break;
+            case 47: button.onclick = function(){drawBoxes(72)};
+            c=72;
+            break;
+            case 48: button.onclick = function(){drawBoxes(73)};
+            c=73;
+            break;
+            case 49: button.onclick = function(){drawBoxes(74)};
+            c=74;
+            break;
+            case 50: button.onclick = function(){drawBoxes(76)};
+            c=76;
+            break;
+            case 51: button.onclick = function(){drawBoxes(77)};
+            c=77;
+            break;
+            case 52: button.onclick = function(){drawBoxes(79)};
+            c=79;
+            break;
+            case 53: button.onclick = function(){drawBoxes(83)};
+            c=83;
+            break;
+            case 54: button.onclick = function(){drawBoxes(84)};
+            c=84;
+            break;
+            case 55: button.onclick = function(){drawBoxes(86)};
+            c=86;
+            break;
+            case 56: button.onclick = function(){drawBoxes(89)};
+            c=89;
+            break;
+            case 57: button.onclick = function(){drawBoxes(91)};
+            c=91;
+            break;
+            case 58: button.onclick = function(){drawBoxes(93)};
+            c=93;
+            break;
+            case 59: button.onclick = function(){drawBoxes(94)};
+            c=94;
+            break;
+
+
+          }
+          
+          button.id = "btn" +c
+          td1.appendChild(button)
+
+          td2.appendChild(document.createTextNode(objects[i].frequency));
+        
+        
+        
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+  tableBody.appendChild(tr);
+}
+
+      myTableDiv.appendChild(table)
+
+
+
+  }
+</script>
+
+<script>
+  function drawBoxes(x){
+    
+  s = "{{myList}}"
+  list = s.split(",")
+  origW = "{{myWidth}}"
+  origH = "{{myHeight}}"
+  scaledW=document.getElementById("image2").width;
+  scaledH=document.getElementById("image2").height;
+
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  ctx.strokeStyle = "red"
+
+
+  ctx.lineWidth = 0.5;
+ 
+  for (i=0;i<list.length;i++)
+      {
+          list2 = list[i].split(" ")
+          if(list2[4] == x)
+          {
+            
+            if(parseFloat(list2[5]) > 0.5)
+            {
+              
+              ctx.rect(parseInt(list2[0]) * (scaledW/origW) , parseInt(list2[1]) * (scaledH/origH), (parseInt(list2[2]) - parseInt(list2[0]))  * (scaledW/origW), (parseInt(list2[3]) - parseInt(list2[1])) * (scaledH/origH));
+            }
+            ctx.stroke();
+          }
+          
+      }
+      document.getElementById("btn"+x).style.color = "red";
+  
+  
+}
+  </script>
+
+  <script>
+    function clearBoxes()
+    {
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      ctx.clearRect(0,0,1024,1024);
+      for(i= 0; i < 60;i++)
+      {
+        switch(i)
+        {
+          case 0: c=11;
+          break;
+          case 1: c=12;
+          break;
+          case 2: c=13;
+          break;
+          case 3: c=15;
+          break;
+          case 4: c=17;
+          break;
+          case 5: c=18;
+          break;
+          case 6: c=19;
+          break;
+          case 7: c=20;
+          break;
+          case 8: c=21;
+          break;
+          case 9: c=23;
+          break;
+          case 10: c=24;
+          break;
+          case 11: c=25;
+          break;
+          case 12: c=26;
+          break;
+          case 13: c=27;
+          break;
+          case 14: c=28;
+          break;
+          case 15: c=29;
+          break;
+          case 16: c=32;
+          break;
+          case 17: c=33;
+          break;
+          case 18: c=34;
+          break;
+          case 19: c=35;
+          break;
+          case 20: c=36;
+          break;
+          case 21: c=37;
+          break;
+          case 22: c=38;
+          break;
+          case 23: c=40;
+          break;
+          case 24: c=41;
+          break;
+          case 25: c=42;
+          break;
+          case 26: c=44;
+          break;
+          case 27: c=45;
+          break;
+          case 28: c=47;
+          break;
+          case 29: c=49;
+          break;
+          case 30: c=50;
+          break;
+          case 31: c=51;
+          break;
+          case 32: c=52;
+          break;
+          case 33: c=53;
+          break;
+          case 34: c=54;
+          break;
+          case 35: c=55;
+          break;
+          case 36: c=56;
+          break;
+          case 37: c=57;
+          break;
+          case 38: c=59;
+          break;
+          case 39: c=60;
+          break;
+          case 40: c=61;
+          break;
+          case 41: c=62;
+          break;
+          case 42: c=63;
+          break;
+          case 43: c=64;
+          break;
+          case 44: c=65;
+          break;
+          case 45: c=66;
+          break;
+          case 46: c=71;
+          break;
+          case 47: c=72;
+          break;
+          case 48: c=73;
+          break;
+          case 49: c=74;
+          break;
+          case 50: c=76;
+          break;
+          case 51: c=77;
+          break;
+          case 52: c=79;
+          break;
+          case 53: c=83;
+          break;
+          case 54: c=84;
+          break;
+          case 55: c=86;
+          break;
+          case 56: c=89;
+          break;
+          case 57: c=91;
+          break;
+          case 58: c=93;
+          break;
+          case 59: c=94;
+          break;
+        }
+        document.getElementById("btn"+c).style.color = "black";
+
+      }
+      ctx.beginPath();
+      
+    }
+    </script>
+
+
+        </head>
+        <body onload="addTable()">
+
+            
+    
+  
+          <div>
+            <h1 align="CENTER"> Satellite Image Classification </h1>
+            <h2 align="CENTER"> Using the DUIx xView Dataset </h2>
+          </div>
+                
+        <h2 align = "LEFT">Objects</h2>
+<div class = "row">
+    <div class="column1" >
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+      <div id = tablediv>
+
+        </div>
+  
+        <p>
+          </p>
+          <button class="button2 button1" onclick="history.back()">Go Back</button>
+          <button class="button2 button1" onclick="clearBoxes()">Clear</button>
+          <button class="button2 button1" onclick="addPicture()">Picture</button>
+          <button class="button2 button1" onclick="addCanvas()">Canvas</button>
+    </div>
+
+
+    <div id = "div2" class="column2">
+   
+     
+     
+
+        
+        <canvas id="myCanvas" width = 1 height = 1></canvas>
+     
+     
+        
+
+        
+    
+    </div>
+  </div>
+  
+
+  <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("OctoTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
+      </script>
+
+<script>
+  function addPicture()
+  {
+    var x = document.createElement("IMG");
+    x.id = "image2"
+    origW = "{{myWidth}}"
+    origH = "{{myHeight}}"
+    x.setAttribute("src", "{{filename}}");
+    x.setAttribute("class","img")
+    x.setAttribute("padding-left","10px");
+    x.setAttribute("padding-top","0px");
+    if(origW/origH > 1000/750)
+    {
+      x.setAttribute("width", "1000");
+    }
+    else
+    {
+      x.setAttribute("height", "750");
+    }
+    
+    
+    document.getElementById("div2").appendChild(x);
+  }
+    </script>
+
+<script>
+  function addCanvas()
+  {
+  scaledW=document.getElementById("image2").width;
+    scaledH =document.getElementById("image2").height;
+
+  var c = document.getElementById("myCanvas");
+  c.width = scaledW;
+  c.height = scaledH; 
+  }
+  
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+    <h1 align="CENTER"> Satellite Image Classification </h1>
+    <h2 align="CENTER"> Using the DUIx xView Dataset </h2>
+    <style>
+.column {
+    float: left;
+    width: 32%;
+    padding: 5px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+                .button2 {
+            background-color: #E47500; 
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; 
+            transition-duration: 0.4s;
+            cursor: pointer;
+            }
+            
+            
+            
+            
+            .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #E47500  ;
+            }
+            
+            .button1:hover {
+            background-color: #E47500;
+            color: white;
+            }
+            </style>
+
+<body>
+<div class="row">
+        <div class="column">
+          <img src="{{pic1}}" alt="Snow" style="width:100%">
+          <form action="\results1">
+                <button class="button2 button1" >See Objects</button>
+                
+                  </form>
+        </div>
+        <div class="column">
+          <img src="{{pic2}}" alt="Forest" style="width:100%">
+          <form action="\results2">
+                <button class="button2 button1" >See Objects</button>
+                
+                  </form>
+        </div>
+        <div class="column">
+          <img src="{{pic3}}" alt="Mountains" style="width:100%">
+          <form action="\results3">
+                <button class="button2 button1" >See Objects</button>
+                
+                  </form>
+        </div>
+        
+</div>
+
+<button class="button2 button1" onclick="history.back()">Go Back</button>
+
+    </body>
